@@ -1,3 +1,5 @@
+"""Reusable EfficientNet-B0 plus GRU model for video deepfake detection."""
+
 import torch
 import torch.nn as nn
 from torchvision.models import efficientnet_b0, EfficientNet_B0_Weights
@@ -36,6 +38,7 @@ class DeepfakeDetector(nn.Module):
         )
 
     def forward(self, x):
+        """Return one binary logit for each video sequence in the batch."""
 
         batch_size, seq_length, c, h, w = x.shape
         
