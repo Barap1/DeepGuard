@@ -1,3 +1,22 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.DS_Store
+.ipynb_checkpoints/
+*.pth
+*.pt
+*.ckpt
+*.mp4
+*.mov
+*.avi
+*.mkv
+outputs/
+temp/
+*.log
+
+# Local scratch files from earlier experiments
 todo
 im.py
 MODEL_VISUALIZATION_README.md
