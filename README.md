@@ -178,6 +178,17 @@ python app.py --model_path path/to/model.pth
 
 Then open the local Gradio URL printed in the terminal and upload a video.
 
+## Testing
+
+Run the lightweight model-shape test suite:
+
+```bash
+python -m unittest discover tests
+```
+
+The tests do not require a trained model checkpoint, video file, dlib detector,
+or Gradio launch.
+
 ## Project Structure
 
 ```text
@@ -195,7 +206,10 @@ Then open the local Gradio URL printed in the terminal and upload a video.
 |-- Example4.mp4                   # Example app video
 |-- best_model.pth                 # Tracked model checkpoint
 |-- GHP 62 Deepfake detection Paper.pdf
+|-- tests/test_model_shape.py       # Lightweight model forward-pass test
+|-- .github/workflows/tests.yml     # CI test workflow
 |-- requirements.txt
+|-- requirements-dev.txt
 |-- README.md
 ```
 
@@ -234,4 +248,3 @@ outputs should be treated as probabilistic signals, not proof.
 
 - [Improving Deep Fake Detection: Integrating Spatial, Frequency, and Gradient Analyses](https://github.com/user-attachments/files/21153386/GHP.62.Deepfake.detection.Paper.pdf)
 - Local tracked copy: `GHP 62 Deepfake detection Paper.pdf`
-
