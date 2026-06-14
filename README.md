@@ -1,7 +1,7 @@
 # DeepGuard: Video Deepfake Detection System
 
 DeepGuard is a deepfake detection prototype that analyzes uploaded videos and
-predicts whether the video is likely real or fake. The app uses a hybrid deep
+predicts whether the video is likely authentic or AI generated/modified. The app uses a hybrid deep
 learning architecture: EfficientNet-B0 extracts spatial features from detected
 face frames, and a GRU models temporal patterns across the video sequence.
 
