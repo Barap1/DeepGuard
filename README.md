@@ -22,6 +22,11 @@ https://b-a-r-a-p-deepguard.hf.space/
 The hosted demo is the easiest way to test the app quickly because local setup
 requires PyTorch, OpenCV, dlib, and a trained model checkpoint.
 
+## Research Paper
+
+- [Improving Deep Fake Detection: Integrating Spatial, Frequency, and Gradient Analyses](https://github.com/user-attachments/files/21153386/GHP.62.Deepfake.detection.Paper.pdf)
+- [Video Demo & Explanation](https://www.youtube.com/watch?v=yQk6DNldoec)
+
 ## Why I Built This
 
 Deepfake generation tools are becoming more accessible and realistic, which
@@ -193,7 +198,3 @@ or Gradio launch.
 - add batch inference
 - split preprocessing, inference, and visualization into modules
 - add a Dockerfile
-
-## Research Paper
-
-- [Improving Deep Fake Detection: Integrating Spatial, Frequency, and Gradient Analyses](https://github.com/user-attachments/files/21153386/GHP.62.Deepfake.detection.Paper.pdf)
