@@ -1,3 +1,5 @@
+"""Gradio inference app for the DeepGuard video deepfake detector."""
+
 import os
 import argparse
 import numpy as np
@@ -18,11 +20,15 @@ import matplotlib.patches as patches
 warnings.filterwarnings("ignore")
 
 class Config:
+    """Shared inference defaults for the Gradio app."""
+
     SEQ_LENGTH = 20
     IMG_SIZE = 224
     DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 class DeepfakeDetector(nn.Module):
+    """EfficientNet-B0 frame encoder followed by GRU temporal classification."""
+
     def __init__(self, pretrained=True, rnn_hidden_size=128, rnn_num_layers=1, dropout_prob=0.5):
         super(DeepfakeDetector, self).__init__()
         if pretrained:
@@ -49,6 +55,8 @@ class DeepfakeDetector(nn.Module):
         )
 
     def forward(self, x):
+        """Run a batch of video frame sequences through the detector."""
+
         batch_size, seq_length, c, h, w = x.shape
         x_reshaped = x.view(batch_size * seq_length, c, h, w)
         cnn_features = self.cnn(x_reshaped)
@@ -60,6 +68,8 @@ class DeepfakeDetector(nn.Module):
         return output
 
 def get_inference_transforms(image_size):
+    """Build the standard resize, normalize, and tensor conversion pipeline."""
+
     return A.Compose([
         A.Resize(height=image_size, width=image_size),
         A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
@@ -67,6 +77,8 @@ def get_inference_transforms(image_size):
     ])
 
 def get_inference_transforms_tta(image_size):
+    """Build the horizontal-flip test-time augmentation transform."""
+
     # For "Deep Think" mode, adds a horizontal flip
     return A.Compose([
         A.Resize(height=image_size, width=image_size),
@@ -76,6 +88,7 @@ def get_inference_transforms_tta(image_size):
     ])
 
 def preprocess_video(video_path, face_detector, fast_face_detector, seq_length, img_size, num_chunks=1, use_fast_detector=False, tta_flip=False):
+    """Sample video chunks, crop detected faces, and return tensor sequences."""
 
     cap = cv2.VideoCapture(video_path)
     total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -138,6 +151,7 @@ def preprocess_video(video_path, face_detector, fast_face_detector, seq_length, 
     return all_chunks if all_chunks else None
 
 def visualize_detection_process(video_path, face_detector, fast_face_detector, seq_length, img_size, num_chunks=1, use_fast_detector=False, tta_flip=False):
+    """Create plots and text explaining face detection and preprocessing."""
 
     if video_path is None:
         return None, "No video uploaded"
@@ -302,6 +316,8 @@ def visualize_detection_process(video_path, face_detector, fast_face_detector, s
     return face_detection_plot, processed_faces_plot, analysis_text
 
 def main(args):
+    """Load detectors and model weights, then launch the Gradio interface."""
+
     print(f"Using device: {Config.DEVICE}")
 
     face_detector = dlib.get_frontal_face_detector()
@@ -323,6 +339,8 @@ def main(args):
         return
 
     def predict_with_visualization(video_path, mode):
+        """Run prediction and return visual diagnostics for the Gradio UI."""
+
         if video_path is None: 
             return {"No video uploaded": 1.0}, None, None, "No video uploaded"
         
@@ -370,6 +388,8 @@ def main(args):
         return {"FAKE": fake_prob, "REAL": real_prob}, face_plot, processed_plot, analysis_text
 
     def predict(video_path, mode):
+        """Run a prediction and return REAL/FAKE label confidences."""
+
         if video_path is None: return {"No video uploaded": 1.0}
         
         print(f"\nProcessing in '{mode}' mode...")
