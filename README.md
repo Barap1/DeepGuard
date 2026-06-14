@@ -197,4 +197,3 @@ or Gradio launch.
 ## Research Paper
 
 - [Improving Deep Fake Detection: Integrating Spatial, Frequency, and Gradient Analyses](https://github.com/user-attachments/files/21153386/GHP.62.Deepfake.detection.Paper.pdf)
-- Local tracked copy: `GHP 62 Deepfake detection Paper.pdf`
