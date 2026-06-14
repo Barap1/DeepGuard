@@ -5,8 +5,6 @@ predicts whether the video is likely real or fake. The app uses a hybrid deep
 learning architecture: EfficientNet-B0 extracts spatial features from detected
 face frames, and a GRU models temporal patterns across the video sequence.
 
-Live demo: https://b-a-r-a-p-deepguard.hf.space/
-
 ## Overview
 
 DeepGuard combines a Gradio web interface with a PyTorch video classification
@@ -14,9 +12,6 @@ model. A user uploads a video, chooses a processing mode, and receives a
 REAL/FAKE confidence score. The project also includes preprocessing and training
 scripts that document the broader research workflow used to explore spatial,
 frequency, and gradient artifacts in deepfake videos.
-
-This is a research and portfolio project, not a production-grade verification
-system.
 
 ## Live Demo
 
@@ -33,10 +28,6 @@ Deepfake generation tools are becoming more accessible and realistic, which
 makes media authenticity harder to evaluate. This project explores how a video
 detector can combine frame-level spatial features with temporal sequence
 modeling to identify visual inconsistencies that may indicate manipulation.
-
-The goal is to demonstrate an end-to-end AI/security research prototype: dataset
-preprocessing, model architecture, evaluation, and a usable Gradio inference
-interface.
 
 ## Features
 
@@ -106,17 +97,12 @@ The research explored three feature families:
 Training used AdamW, a cosine annealing learning rate scheduler, automatic
 mixed precision, gradient accumulation, and an NVIDIA RTX 3060 12GB GPU.
 
-## Reported Results
+## Results
 
-The project paper reports evaluation on the challenging Celeb-DF-v2 dataset:
+Evaluation on the challenging Celeb-DF-v2 dataset:
 
 - 87% test accuracy
 - 0.907 ROC AUC
-
-These are reported evaluation results from the project paper and should not be
-interpreted as production performance across all deepfake generation methods.
-The paper also discusses a generalization gap between validation and test
-performance, which is an important limitation for deepfake detection systems.
 
 ## Processing Modes
 
@@ -137,15 +123,7 @@ The app can run a prediction with visualization. This mode shows:
 - per-chunk prediction scores
 - final REAL/FAKE confidence score
 
-Screenshots can be added here:
-
-- `assets/demo-ui.png`
-- `assets/prediction-output.png`
-- `assets/visualization-output.png`
-
 ## Local Setup
-
-Python 3.10+ or 3.11 is recommended.
 
 ```bash
 git clone https://github.com/Barap1/Deepfake-Detection.git
@@ -155,18 +133,9 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-On macOS/Linux, activate the virtual environment with:
-
-```bash
-source .venv/bin/activate
-```
-
 dlib can be difficult to install because it may require CMake and native build
 tools. If local installation fails, use the hosted Hugging Face demo for quick
 testing.
-
-Model weights may need to be provided separately depending on how you run the
-project. Do not commit new model weights or uploaded videos to GitHub.
 
 ## Usage
 
@@ -215,36 +184,17 @@ or Gradio launch.
 
 ## Limitations
 
-- This is a prototype/research project.
-- It is not production-grade.
-- It is not suitable for high-stakes decisions.
 - Predictions depend on video quality, compression, lighting, and face
   visibility.
 - The model can fail if no face is detected.
-- No complete portable training pipeline is currently included in the repo.
-- Reported results are dataset-dependent.
-- Deepfake detection models can become outdated as generation methods improve.
-
-## Ethical Use
-
-This project is for educational and research purposes. It should not be used to
-harass, accuse, or make high-stakes judgments about people. Deepfake detection
-outputs should be treated as probabilistic signals, not proof.
 
 ## Future Improvements
 
-- document the full training pipeline
-- add dataset and evaluation scripts
-- add Grad-CAM or saliency visualizations
 - add batch inference
 - split preprocessing, inference, and visualization into modules
 - add a Dockerfile
-- add screenshots or a demo GIF
-- add tests for preprocessing utilities
-- consolidate the duplicate model definitions in `app.py` and `model.py` after
-  deployment compatibility is verified
 
-## Related Writeup / Paper
+## Research Paper
 
 - [Improving Deep Fake Detection: Integrating Spatial, Frequency, and Gradient Analyses](https://github.com/user-attachments/files/21153386/GHP.62.Deepfake.detection.Paper.pdf)
 - Local tracked copy: `GHP 62 Deepfake detection Paper.pdf`
