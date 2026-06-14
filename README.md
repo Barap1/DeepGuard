@@ -75,7 +75,7 @@ matching model definition inside `app.py` for deployment compatibility.
 
 ## Research Methodology
 
-The project paper describes a broader research and training pipeline:
+My project paper describes the research and training pipeline in more detail
 
 ```text
 video dataset
